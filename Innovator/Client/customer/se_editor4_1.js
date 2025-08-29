@@ -37,7 +37,7 @@ function init_contextMenu() {
         event.stopPropagation();
 
         let targetG = event.target.closest("g[data-options]");
-
+        debugger;
         // Handle right-click on graph0 (background area)
         if (!targetG) {
             const graph0 = document.querySelector("g#graph0");
@@ -158,7 +158,7 @@ function init_contextMenu() {
         setTimeout(() => {
             contextMenu.style.left = `${posX}px`;
             contextMenu.style.top = `${posY}px`;
-            contextMenu.style.display = "block !important;" 
+            contextMenu.style.display = "block";
         }, 10);
         setTimeout(() => {
             console.log("Final context menu position:", contextMenu.style.left, contextMenu.style.top);
@@ -237,7 +237,7 @@ function init_contextMenu() {
                     new_item = new_item.apply('add');
                    // a.uiShowItemEx(new_item.node);
                    if (new_item.isError()) {
-                        a.AlertError(new_item; 
+                        a.AlertError(new_item); 
                     } else { 
                         a.AlertSuccess("Process for System created."); 
                     }                
