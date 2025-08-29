@@ -136,21 +136,14 @@ function init_contextMenu() {
                 console.log(parent, window.getComputedStyle(parent).transform);
                 parent = parent.parentElement;
             }
-
             console.log(`pageX: ${event.pageX}, pageY: ${event.pageY}`);
             console.log(`clientX: ${event.clientX}, clientY: ${event.clientY}`);
             console.log(`Bounding box: left=${bounding_rec.left}, top=${bounding_rec.top}`);
             console.log(`Scroll offsets: scrollX=${window.scrollX}, scrollY=${window.scrollY}`);
-
             console.log(`SVG offsetParent: ${document.querySelectorAll("svg").offsetParent}`);
             console.log(`Offset top: ${document.querySelectorAll("svg").offsetTop}`);
-
-
         // --- end of  logging
 
-        //let iframe = document.getElementById('se_editor'); // Replace with your iframe ID
-        //let iframeRect = iframe.getBoundingClientRect();
-    
         // Adjust the mouse position to be relative to the iframe
         // document.body.appendChild(contextMenu);
         posX += bounding_rec.left;
@@ -167,12 +160,6 @@ function init_contextMenu() {
             console.log('Context menu properties:', contextMenu.style.left, contextMenu.style.top, contextMenu.style.display);
         }).observe(contextMenu, { attributes: true });
         
-        
-        //contextMenu.style.left = `${event.pageX}px`;
-        //contextMenu.style.top = `${event.pageY}px`;
-        //contextMenu.style.left = `${posX}px`;
-        //contextMenu.style.top = `${posY}px`;        
-       //contextMenu.style.display = "block";
     });
 
     // Hide menu when clicking anywhere else
