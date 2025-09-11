@@ -28,6 +28,7 @@
    <Item type="Property" id="00E17172E6404E5CA2CC0073289EEC37" action="add">
     <column_alignment>left</column_alignment>
     <data_type>string</data_type>
+    <is_discoverable>1</is_discoverable>
     <is_federated>0</is_federated>
     <is_hidden>1</is_hidden>
     <is_hidden2>1</is_hidden2>
@@ -40,13 +41,14 @@
     <readonly>0</readonly>
     <sort_order>3712</sort_order>
     <source_id keyed_name="SE IO" type="ItemType" name="SE IO">BE6A6FA27D4C4EB1B34320988D163642</source_id>
-    <stored_length>1024</stored_length>
+    <stored_length>2048</stored_length>
     <track_history>0</track_history>
     <name>description</name>
    </Item>
    <Item type="Property" id="2AF39CE02A5A46BD9E582EBDB7A4FE9B" action="add">
     <column_alignment>left</column_alignment>
     <data_type>string</data_type>
+    <is_discoverable>1</is_discoverable>
     <is_federated>0</is_federated>
     <is_hidden>0</is_hidden>
     <is_hidden2>0</is_hidden2>
@@ -67,6 +69,7 @@
    <Item type="Property" id="11F45BBAF0EF4370A7E09B2BEC59AEB4" action="add">
     <column_alignment>left</column_alignment>
     <data_type>string</data_type>
+    <is_discoverable>1</is_discoverable>
     <is_federated>0</is_federated>
     <is_hidden>0</is_hidden>
     <is_hidden2>0</is_hidden2>

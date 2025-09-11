@@ -8,12 +8,11 @@ string system_id;
 if (this_type == "sys_System") system_id = this.getID(); // called by show_se_process_report
 else  system_id = this.getProperty("system_id"); // called by show_se_process_report2 Dashboard generic method
 
-bool debug = true;
+bool debug = false;
 if (debug == true)
 {
     //if (System.Diagnostics.Debugger.Launch()) System.Diagnostics.Debugger.Break();
-    system_id = "C27D19AFCC2D470BB4F216C8B459D955"; // System 1
-    //system_id = "9D4367F530114858A2BB9B9F9984EA42"; // System 2
+    system_id = "F33C355B4CA8488CA28884E71DBCA047"; // System 1
 }
 
 string aml1 = @"<AML>

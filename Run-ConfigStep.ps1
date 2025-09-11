@@ -8,8 +8,8 @@ if ($OrigDir) {
     Set-Location $OrigDir
     # unblock DLL files ConsoleUpgrade, we trust Aras
     $dlls = @(
-    "$OrigDir\ConsoleUpgrade\IOM.dll",
-    "$OrigDir\ConsoleUpgrade\Libs.dll"
+    "$OrigDir\tools\ConsoleUpgrade\IOM.dll",
+    "$OrigDir\tools\ConsoleUpgrade\Libs.dll"
     )
     foreach ($dll in $dlls) {
         if (Test-Path "$file:Zone.Identifier") {

@@ -1,0 +1,8 @@
+<AML>
+ <Item type="CommandBarButton" id="3531003440DD4B74ACE1CFB2FF90FFB6" action="add">
+  <image>../images/ViewWorkflow.svg</image>
+  <image_additional>../images/ViewWorkflow.svg</image_additional>
+  <on_click_handler keyed_name="show_se_process_report4" type="Method">5FB31395E0C046F8BF473BEDE6BDC585</on_click_handler>
+  <name>SE Editor</name>
+ </Item>
+</AML>

@@ -28,6 +28,7 @@
    <Item type="Property" id="4075FFD4BD0149749EB83539E9AEFE20" action="add">
     <column_alignment>left</column_alignment>
     <data_type>string</data_type>
+    <is_discoverable>1</is_discoverable>
     <is_federated>0</is_federated>
     <is_hidden>1</is_hidden>
     <is_hidden2>1</is_hidden2>
@@ -47,6 +48,7 @@
    <Item type="Property" id="63D2AF9A5F1B4ECDB0DD7F60694F55D6" action="add">
     <column_alignment>left</column_alignment>
     <data_type>string</data_type>
+    <is_discoverable>1</is_discoverable>
     <is_federated>0</is_federated>
     <is_hidden>1</is_hidden>
     <is_hidden2>1</is_hidden2>
@@ -66,6 +68,7 @@
    <Item type="Property" id="673D30B319AA45C4A666089928CE312A" action="add">
     <column_alignment>left</column_alignment>
     <data_type>string</data_type>
+    <is_discoverable>1</is_discoverable>
     <is_federated>0</is_federated>
     <is_hidden>1</is_hidden>
     <is_hidden2>1</is_hidden2>
@@ -82,9 +85,50 @@
     <track_history>0</track_history>
     <name>enablers</name>
    </Item>
+   <Item type="Property" id="8DDFE7DEB92E478F94DB321CC7AC5AAA" action="add">
+    <column_alignment>left</column_alignment>
+    <data_type>string</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>0</is_hidden>
+    <is_hidden2>0</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <label xml:lang="en">guide_ipofig</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>4352</sort_order>
+    <source_id keyed_name="SE Process" type="ItemType" name="SE Process">AC5F571593B547BE91F0A11FA0A1FD4C</source_id>
+    <stored_length>16</stored_length>
+    <track_history>0</track_history>
+    <name>guide_ipofig</name>
+   </Item>
+   <Item type="Property" id="D7FC6FED52394746A4CB3D4714C41AD9" action="add">
+    <column_alignment>left</column_alignment>
+    <data_type>string</data_type>
+    <is_discoverable>1</is_discoverable>
+    <is_federated>0</is_federated>
+    <is_hidden>0</is_hidden>
+    <is_hidden2>0</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <label xml:lang="en">guide_section</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>4224</sort_order>
+    <source_id keyed_name="SE Process" type="ItemType" name="SE Process">AC5F571593B547BE91F0A11FA0A1FD4C</source_id>
+    <stored_length>16</stored_length>
+    <track_history>0</track_history>
+    <name>guide_section</name>
+   </Item>
    <Item type="Property" id="D59C434B8A874A369300399B94E78667" action="add">
     <column_alignment>left</column_alignment>
     <data_type>boolean</data_type>
+    <is_discoverable>1</is_discoverable>
     <is_federated>0</is_federated>
     <is_hidden>0</is_hidden>
     <is_hidden2>0</is_hidden2>
@@ -103,6 +147,7 @@
    <Item type="Property" id="AE79D3C997714779A83B7677EC8ECB28" action="add">
     <column_alignment>left</column_alignment>
     <data_type>string</data_type>
+    <is_discoverable>1</is_discoverable>
     <is_federated>0</is_federated>
     <is_hidden>0</is_hidden>
     <is_hidden2>0</is_hidden2>
@@ -123,6 +168,7 @@
    <Item type="Property" id="3CD23C3AE551476BB15729BFE56429E2" action="add">
     <column_alignment>left</column_alignment>
     <data_type>string</data_type>
+    <is_discoverable>1</is_discoverable>
     <is_federated>0</is_federated>
     <is_hidden>0</is_hidden>
     <is_hidden2>0</is_hidden2>
@@ -143,6 +189,7 @@
     <column_alignment>left</column_alignment>
     <data_source keyed_name="SE Process Type">7EB91526714C4700966DB2CF345F1A0C</data_source>
     <data_type>list</data_type>
+    <is_discoverable>1</is_discoverable>
     <is_federated>0</is_federated>
     <is_hidden>0</is_hidden>
     <is_hidden2>0</is_hidden2>
@@ -163,6 +210,7 @@
     <column_alignment>left</column_alignment>
     <data_source keyed_name="SE Controlled Item" type="ItemType" name="SE Controlled Item">673CEBC159EA49A9A73FBE2E27FD2A7B</data_source>
     <data_type>item</data_type>
+    <is_discoverable>1</is_discoverable>
     <is_federated>0</is_federated>
     <is_hidden>0</is_hidden>
     <is_hidden2>0</is_hidden2>
@@ -182,6 +230,7 @@
    <Item type="Property" id="8A33126B73E5431C865FAFC4A7AFC6EF" action="add">
     <column_alignment>left</column_alignment>
     <data_type>string</data_type>
+    <is_discoverable>1</is_discoverable>
     <is_federated>0</is_federated>
     <is_hidden>1</is_hidden>
     <is_hidden2>1</is_hidden2>
@@ -202,6 +251,7 @@
     <column_alignment>left</column_alignment>
     <data_source keyed_name="SE Process" type="ItemType" name="SE Process">AC5F571593B547BE91F0A11FA0A1FD4C</data_source>
     <data_type>item</data_type>
+    <is_discoverable>1</is_discoverable>
     <is_federated>0</is_federated>
     <is_hidden>1</is_hidden>
     <is_hidden2>1</is_hidden2>

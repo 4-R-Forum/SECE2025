@@ -12,10 +12,10 @@
 </machine>
 -->
 <machine name="GOLF">
-	<innovator_url>http://localhost/SECE2025/</innovator_url>
+	<innovator_url>http://localhost/SECE2025_2/</innovator_url>
 	<database_name>SECE2025</database_name>
 	<backup_folder>C:\SECE2025\InnovatorBackup</backup_folder> 
-	<installation_folder>C:\SECE2025</installation_folder> 
+	<installation_folder>C:\SECE2025_2</installation_folder> 
 	<sql_service>MSSQL$SQL2019</sql_service> 
 	<sql_instance>localhost\SQL2019</sql_instance>     
 	<sql_bak>C:\DataBackup\SECE2025.bak</sql_bak> 

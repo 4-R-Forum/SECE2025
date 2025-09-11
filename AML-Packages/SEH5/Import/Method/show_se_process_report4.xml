@@ -1,7 +1,7 @@
 ﻿<AML>
  <Item type="Method" id="5FB31395E0C046F8BF473BEDE6BDC585" action="add">
-  <execution_allowed_to keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</execution_allowed_to>
-  <method_code><![CDATA[// debugger;
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[//debugger;
 const is_report = false;
 
 svgString = thisItem.apply("SystemReportServer").getResult();
@@ -82,22 +82,31 @@ iframe.id = "se_editor";
 let se_viewers = document.getElementById("viewers");
 // Use MutationObserver to watch for attribute changes
 let observer = new MutationObserver((mutations) => {
-	mutations.forEach((mutation) => {
-		if (mutation.attributeName === "active-pane-id") {
-			let activePane = se_viewers.getAttribute("active-pane-id");
-			console.log("Active pane changed:", activePane);
+  mutations.forEach((mutation) => {
+    if (mutation.attributeName === "active-pane-id") {
+      let activePane = se_viewers.getAttribute("active-pane-id");
+      console.log("Active pane changed:", activePane);
 
-			if (activePane === "Open_SE_Editor") {
-				iframe.style.visibility = "visible";
-			} else {
-				iframe.style.visibility = "hidden";
-			}
-		}
-	});
+      // Updated pane id for CE2025
+      if (activePane === "SE Editor") {
+        iframe.style.visibility = "visible";
+        iframe.style.display = "block";
+      } else {
+        iframe.style.visibility = "hidden";
+        iframe.style.display = "none";
+      }
+    }
+  });
 });
-// Observe the "viewers" element for attribute changes
-observer.observe(se_viewers, { attributes: true });
 
+// Observe the "viewers" element for attribute changes
+if (se_viewers) {
+  observer.observe(se_viewers, { attributes: true });
+} else {
+  console.warn("CE2025: #viewers not found, forcing iframe visible.");
+  iframe.style.visibility = "visible";
+  iframe.style.display = "block";
+}
 
 // Wait for iframe to load, then write content
 iframe.onload = function () {
@@ -107,7 +116,10 @@ iframe.onload = function () {
 	doc.close();
 };
 let viewers = document.getElementById("viewers");
+iframe.style.visibility = "visible";
+iframe.style.display = "block";
 viewers.appendChild(iframe);
+
 
 return null;]]></method_code>
   <method_type>JavaScript</method_type>
