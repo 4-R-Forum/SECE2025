@@ -15,6 +15,6 @@
 <param  id="4000" hint="location of first folder containing AML files" varname="aml_path_1">..\..\src\PostProcessing\</param>
 <files1 id="4010">SetUpJon.xml</files1>
 <files1 id="4020">SEContrItemMorphae.xml</files1>
-<files1 id="4030">LoadSEH5.xml</files1>
+<files1 id="4030">LoadSEH5-2.xml</files1>
 <!--<files1 id="4010"></files1>-->
 </config-ps>
