@@ -4,4 +4,9 @@
   <is_alias>0</is_alias>
   <name>Systems Engineering Manager</name>
  </Item>
+ <Item type="Member" id="B5161A1356AA473EBD8D65659861C185" action="add">
+  <related_id keyed_name="Systems Engineering Administrator" type="Identity">D35E3594A90D40C59B5B2E9777D8EBC5</related_id>
+  <sort_order>128</sort_order>
+  <source_id keyed_name="Systems Engineering Manager" type="Identity">18D154535A5E4CC1A586AD227B43BC8A</source_id>
+ </Item>
 </AML>

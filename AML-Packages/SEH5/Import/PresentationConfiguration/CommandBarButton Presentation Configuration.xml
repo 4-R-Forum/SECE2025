@@ -1,0 +1,14 @@
+﻿<AML>
+ <Item type="PresentationConfiguration" id="C3F7D86B3FCB4E80984D746606C5B289" action="add">
+  <color>#3845dc</color>
+  <name>CommandBarButton Presentation Configuration</name>
+  <Relationships>
+   <Item type="PresentationCommandBarSection" id="F23BFAA4299D4B029DDEF799D62B58FE" action="add">
+    <related_id keyed_name="CommandBarButton_TOC_Content" type="CommandBarSection">D7B6D20C6F6A4C39AD94C827421F5426</related_id>
+    <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="CommandBarButton Presentation Configuration" type="PresentationConfiguration">C3F7D86B3FCB4E80984D746606C5B289</source_id>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

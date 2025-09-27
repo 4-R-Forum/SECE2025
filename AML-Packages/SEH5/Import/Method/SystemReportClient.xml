@@ -1,0 +1,123 @@
+﻿<AML>
+ <Item type="Method" id="6F295BDA519B4278BE7595991C137186" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[debugger;
+const is_report = false;
+if (typeof thisItem == "undefined") {
+  const innov = top.aras.newIOMItem();
+	var newItem = innov.newItem();
+	newItem.loadAML(inDom);
+	thisItem = newItem;
+}
+
+
+svgString = thisItem.apply("SystemReportServer").getResult();
+// // Parse the string into a DOM structure
+// const parser = new DOMParser();
+// const xmlDoc = parser.parseFromString(svgString, "image/svg+xml");
+// const this_type = thisItem.getType();
+// const this_id = thisItem.getID();
+
+// // Select all elements with the "node" attribute
+// xmlDoc.querySelectorAll(".node").forEach(el => {
+// 	// set attributes for se_editor, type, id, options for menu
+// 	let this_xid = el.childNodes[0];
+// 	let this_id = this_xid.textContent.replace("x", "");
+// 	let this_type = "SE Controlled Item";
+// 	let seci = thisItem.newItem("SE Process");
+// 	seci.setID(this_id);
+// 	seci.setAttribute("select", "id");
+// 	let res = seci.apply("get");
+// 	if (!res.isError()) {
+// 		this_type = "SE Process";
+// 		el.setAttribute("data-options", "[\"Open\", \"Add Input\",\"Add Output\",  \"New Process\"]");
+// 	}
+// 	else {
+// 		el.setAttribute("data-options", "[\"Open\", \"Set SE Controlled Item\"]");
+// 	};
+// 	el.setAttribute("this_type", this_type);
+// 	el.setAttribute("this_id", this_id);
+// });
+
+// // Serialize it back to string
+// const serializer = new XMLSerializer();
+// const newSvgString = serializer.serializeToString(xmlDoc);
+var html = `
+<html>
+	<head>
+	<link rel="stylesheet" href = 'http://localhost/SECE2025_2/Client/customer/se_editor.css' type='text/css'>	
+  <script                 src = 'http://localhost/SECE2025_2/Client/customer/panzoom.js'   type='text/javascript' ></script>
+  <script                 src = 'http://localhost/SECE2025_2/Client/customer/se_editor4_2.js' type='text/javascript'></script>
+ 	</head>
+    <body>
+	    <div>
+        <div id="contextMenu" class="context-menu">
+        	<ul id="menuItems"></ul>
+    		</div>
+				<svg id='se_svg' class='se_svg' tabindex='0' aria-label='SE Editor'>
+					<text x='4' y='14' font-family='Arial' font-size='14.00'>Drag to Pan, ScrollWheel to Zoom</text>
+					<g id='graphmain' />
+				</svg>
+		</div>
+	</body>
+</html>
+`;
+if (is_report) return html;
+let iframe = document.getElementById("se_editor");
+if (iframe) {
+	iframe.remove(); // Remove existing iframe before adding a new one
+};
+iframe = document.createElement("iframe");
+iframe.style.border = "1px solid black";
+iframe.style.visibility = "visible";
+iframe.id = "se_editor";
+
+
+
+let se_viewers = document.getElementById("viewers");
+// Use MutationObserver to watch for attribute changes
+let observer = new MutationObserver((mutations) => {
+  mutations.forEach((mutation) => {
+    if (mutation.attributeName === "active-pane-id") {
+      let activePane = se_viewers.getAttribute("active-pane-id");
+      console.log("Active pane changed:", activePane);
+
+      // Updated pane id for CE2025
+      if (activePane === "SE Editor") {
+        iframe.style.visibility = "visible";
+        iframe.style.display = "block";
+      } else {
+        iframe.style.visibility = "hidden";
+        iframe.style.display = "none";
+      }
+    }
+  });
+});
+
+// Observe the "viewers" element for attribute changes
+if (se_viewers) {
+  observer.observe(se_viewers, { attributes: true });
+} else {
+  console.warn("CE2025: #viewers not found, forcing iframe visible.");
+  iframe.style.visibility = "visible";
+  iframe.style.display = "block";
+}
+
+// Wait for iframe to load, then write content
+iframe.onload = function () {
+	let doc = iframe.contentWindow.document;
+	doc.open();
+	doc.write(html);  // Writes the HTML content
+	doc.close();
+};
+let viewers = document.getElementById("viewers");
+iframe.style.visibility = "visible";
+iframe.style.display = "block";
+viewers.appendChild(iframe);
+
+
+return null;]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>SystemReportClient</name>
+ </Item>
+</AML>
