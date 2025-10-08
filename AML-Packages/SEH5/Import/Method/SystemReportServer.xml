@@ -2,6 +2,15 @@
  <Item type="Method" id="36F4F7B50ECA42BE902B71CB084A3FD7" action="add">
   <execution_allowed_to keyed_name="Administrators" type="Identity">2618D6F5A90949BAA7E920D1B04C7EE1</execution_allowed_to>
   <method_code><![CDATA[Innovator innov = this.getInnovator();
+
+Item itemExists(string itemType, string itemId, string select) {
+    Item item = this.newItem(itemType);
+    item.setID(itemId);
+    item.setAttribute("select", select);
+    Item res = item.apply("get");
+    if (!res.isError()) return res;
+    else return null;
+}
 // step 1, get ids of structure for system
 string this_type = this.getType();
 string system_id;
@@ -12,7 +21,8 @@ bool debug = false;
 if (debug == true)
 {
     //if (System.Diagnostics.Debugger.Launch()) System.Diagnostics.Debugger.Break();
-    system_id = "F33C355B4CA8488CA28884E71DBCA047"; // System 1
+    //system_id = "51C1A8056B884BCFB63128C5022218C2"; // System 1
+    system_id = "F6139A42314F492FB45198281942122F"; // System 2
 }
 
 string aml1 = @"<AML>
@@ -51,7 +61,7 @@ Item res2 = innov.applyAML(aml2);
 
 // step 3 define nodes and edges for thread diagram, as dot language
 StringBuilder dot = new StringBuilder("");
-// 3.1 create nodes for processes
+// 3.1 create Dot language for SE Process nodes
 Item process_nodes = res2.getItemsByXPath("//Item[@type='SE Process']");
 // return process_nodes;
 for (int i = 0; i < process_nodes.getItemCount(); i++)
@@ -63,51 +73,33 @@ for (int i = 0; i < process_nodes.getItemCount(); i++)
     dot.Append(this_node);
 }
 // 3.2 create nodes and edges for IO
+/*
+    First pass: create Dot language for SE Input and SE Output nodes and edges
+*/
 Item io_nodes = res2.getItemsByXPath("//Item[@type='SE Input']|//Item[@type='SE Output']");
 for (int i = 0; i < io_nodes.getItemCount(); i++)
 {
+    // Just get Input/Output data in first passs, set seci_id, data_options , this_type, this_id in second pass  
+    // Do set fill, its easier to do here, and will not change
     Item this_io = io_nodes.getItemByIndex(i);
-    string keyed_name = this_io.getPropertyAttribute("se_io_id","keyed_name");
-    keyed_name = keyed_name.Replace(" ","\r\n");
-    string se_controlled_item_id;
-    Item se_controlled_item = this_io.getPropertyItem("se_controlled_item_id"); // null if no Item present
-    if (se_controlled_item != null) se_controlled_item_id = se_controlled_item.getID();
-    se_controlled_item_id = this_io.getProperty("se_controlled_item_id");
-    string nickname = this_io.getPropertyAttribute("se_controlled_item_id","keyed_name","Empty");
-    string name;
-    Item this_controlled_item = this_io.getPropertyItem("se_controlled_item_id");
-    if (null == this_controlled_item) name ="N/A";
-    else name = this_controlled_item.getProperty("name","N/A");
-    //string name =     this_io.getPropertyItem("se_controlled_item_id").getProperty("name","N/A");
     string source_id = this_io.getProperty("source_id");
-    string relationship_id = this_io.getID();
-    //string node_id= relationship_id;
+    string node_id = this_io.getID();
     string this_node_type = this_io.getType();
+    string se_controlled_item_id = this_io.getProperty("se_controlled_item_id"); 
     string this_node_fill = ((String.IsNullOrEmpty(se_controlled_item_id))) ? "lightgray" : "lightblue1";
-    /**/
-    string node_id;
-    if (String.IsNullOrEmpty(se_controlled_item_id))
-    {
-        node_id= relationship_id;
-    }
-    else
-    {
-        node_id = se_controlled_item_id;
-    }
-    /**/
-    //if (System.Diagnostics.Debugger.Launch()) System.Diagnostics.Debugger.Break();
-    //string data_options="\"data-options=['Open', 'Add IO', 'New IO']\"";
-
-    string this_node = $"x{node_id} [shape=parallelogram,style=filled,fillcolor={this_node_fill},label=\"{keyed_name}\r\n{nickname}\r\n{name}\"]\r\n";
- string node_from, node_to;
+    string keyed_name = this_io.getPropertyAttribute("se_io_id","keyed_name");
+    keyed_name = keyed_name.Replace(" ","\r\n"); // Split IO keyed name by space, make shape narrow
+    string nickname = this_io.getPropertyAttribute("se_controlled_item_id","keyed_name","(No SECI)");
+    Item this_controlled_item = this_io.getPropertyItem("se_controlled_item_id");
+    string name = (null == this_controlled_item)  ? "" : this_controlled_item.getProperty("name");
+    string this_node = $"x{node_id} [shape=parallelogram,style=filled,fillcolor={this_node_fill},label=\"{keyed_name}\r\n{nickname}\r\n{name}\"]\r\n"; // create dot for node
+    string node_from, node_to;
     node_from = node_to = "";
-    if ("SE Output" ==this_io.getType())
-    {
+    if ("SE Output" ==this_io.getType()) {
         node_from = source_id;
         node_to   = node_id;
     }
-    else
-    {
+    else {
         node_from = node_id;
         node_to   = source_id;
     }
@@ -117,10 +109,74 @@ for (int i = 0; i < io_nodes.getItemCount(); i++)
 }
 string dot_string = "digraph g{rankdir=TB;bgcolor=azure;\r\n" + dot.ToString()  + "}";
 dot_string = dot_string.Replace("&gt;",">"); // decode right angle bracket
-
 // step 4 return svg for thread diagram
 string body = "<body><dot>" + dot_string +  "</dot></body>";
-return innov.applyMethod("Dot2Svg",body);]]></method_code>
+string svgString =  innov.applyMethod("Dot2Svg",body).getResult();
+// if (System.Diagnostics.Debugger.Launch()) System.Diagnostics.Debugger.Break();
+// Parse SVG string into an XML document
+System.Xml.Linq.XDocument xmlDoc = System.Xml.Linq.XDocument.Parse(svgString);
+
+/* 
+    Second pass update svg
+    Select all elements with class="node"
+*/
+var nodes = xmlDoc.Descendants().Where(e => (string)e.Attribute("class") == "node");
+System.Xml.Linq.XNamespace svg = "http://www.w3.org/2000/svg";
+foreach (var el in nodes)
+{
+    string nodeId = (String)el.Element(svg + "title");
+    nodeId = nodeId.Replace("x", "");
+    string nodeType = ""; // populated in nested if
+    // Query Aras for this ID, assuming its SE Process
+    Item res = itemExists("SE Process",nodeId,"state");
+    if (res != null)
+    {
+        // the assumption was correct it is SE Process
+        nodeType = "SE Process";
+        if (res.getProperty("state") == "Preliminary")
+             el.SetAttributeValue("data-options", "1");
+        else el.SetAttributeValue("data-options", "2");
+        el.SetAttributeValue("this_type", nodeType);
+        el.SetAttributeValue("this_id", nodeId);
+    }
+    else
+    {
+        // the assumption is incorrect, it must be SE Input or Output 
+        // for SECI we need to pass  id of InputOutput as attribute "inout_id"
+        res = itemExists("SE Input",nodeId,"se_controlled_item_id");
+        if (res!=null){          
+            nodeType = "SE Input";
+            if (res.getPropertyAttribute("se_controlled_item_id","is_null") == "1"){          
+                 el.SetAttributeValue("data-options", "3");
+                 el.SetAttributeValue("seci_id","");
+            }
+            else {
+                el.SetAttributeValue("data-options", "4");
+                el.SetAttributeValue("seci_id",res.getProperty("se_controlled_item_id"));
+            }
+        }
+        else {
+            res = itemExists("SE Output",nodeId,"se_controlled_item_id");
+            if (res!=null){
+                nodeType =  "SE Output";
+                if (res.getPropertyAttribute("se_controlled_item_id","is_null") == "1") {
+                    el.SetAttributeValue("data-options", "3");
+                    el.SetAttributeValue("seci_id","");
+            }
+            else {
+                el.SetAttributeValue("data-options", "4");
+                el.SetAttributeValue("seci_id",res.getProperty("se_controlled_item_id"));
+            }
+        }
+        // Set type and id attributes
+        el.SetAttributeValue("this_type", nodeType);
+        el.SetAttributeValue("this_id", nodeId);
+    }
+}
+
+} // dangling brace to enable enclosed method
+// Serialize back to string
+return innov.newResult(xmlDoc.ToString(System.Xml.Linq.SaveOptions.DisableFormatting));]]></method_code>
   <method_type>C#</method_type>
   <name>SystemReportServer</name>
  </Item>
