@@ -24,8 +24,8 @@ var html = `
         <div id="contextMenu" class="context-menu">
         	<ul id="menuItems"></ul>
     		</div>
-          <svg id="se_svg" width="800pt" height="450pt" viewBox="0 0 800 450">
-            <text x="4" y="14" font-family="Arial" font-size="14">Drag to Pan, ScrollWheel to Zoom</text>
+          <svg id="se_svg" width="100%" height="100%" viewBox="0 0 800 450" preserveAspectRatio="xMidYMid meet" style="display:block;">
+            <text x="4" y="14" font-family="Segoe UI" font-size="14">Drag to Pan, ScrollWheel to Zoom</text>
             <!-- Outer pan/zoom group -->
             <g id="panzoom_layer">
               <!-- Inner graph container -->
@@ -46,6 +46,10 @@ if (iframe) {
 iframe = document.createElement("iframe");
 iframe.style.border = "1px solid black";
 iframe.style.visibility = "visible";
+iframe.style.width = "100%";
+iframe.style.height = "100%";
+iframe.style.minHeight = "450px";
+iframe.style.boxSizing = "border-box";
 iframe.id = "se_editor";
 
 
