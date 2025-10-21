@@ -1,7 +1,17 @@
-param (
+param(
+    [Parameter(Mandatory = $true)]
     [string]$Step,
-    [string]$OrigDir
+
+    [Parameter(Mandatory = $false)]
+    [string]$OrigDir,
+
+    [Parameter(Mandatory = $false)]
+    [string]$login_name,
+
+    [Parameter(Mandatory = $false)]
+    [string]$AmlFile
 )
+
 
 # Restore original working directory if passed
 if ($OrigDir) {
@@ -76,8 +86,25 @@ switch ($Step) {
         Connect-Innov 'root'
         Export-Changes
     }
+        '4' {
+        Write-Host "Executing Step 4: Submit AML file $AmlFile"
+        
+        if (-not (Test-Path $AmlFile)) {
+            Write-Error "AML file not found: $AmlFile"
+            exit 1
+        }
+        # Read the AML XML from the specified file
+        $amlXml = Get-Content -Path $AmlFile -Raw
+        # Send AML via the existing function in InnovConfig.psm1
+        Write-Host "Login and send AML ..."
+        $res = Get-AMLResult -login_name $login_name -aml $amlXml
+        
+        $outputFile = [System.IO.Path]::ChangeExtension($AmlFile, '.result.xml')
+        $res | Out-File -FilePath $outputFile -Encoding utf8
+        Write-Host "Result saved to $outputFile"
+    }
     default {
-        Write-Host "Invalid or missing step. Use 1 to 3."
+        Write-Host "Invalid or missing step. Use 1 to 4."
     }
 }
 Pause
